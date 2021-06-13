@@ -28,4 +28,12 @@ if(ENABLE_UNIT_TESTS)
     )
 
   add_test(unit ${PROJECT_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/unit_tests)
+
+  # Auto-run the tests and fail the build if the tests fail
+  add_custom_command(
+     TARGET unit_tests
+     COMMENT "Run tests"
+     POST_BUILD 
+     COMMAND unit_tests
+  )
 endif()
