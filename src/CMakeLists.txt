@@ -1,19 +1,11 @@
-add_executable(project.x "")
+add_library(Application_lib STATIC Application.cpp)
+target_include_directories(Application_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
-target_sources(
-  project.x
-  PRIVATE
-    main.cpp
-)
-
-target_include_directories(
-  project.x
-  PRIVATE
-    ${PROJECT_BINARY_DIR}/generated
-)
+add_executable(Application main.cpp)
+target_link_libraries(Application PRIVATE Application_lib)
 
 # installs executable in build/bin
 install(
-  TARGETS project.x
+  TARGETS Application
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )

@@ -3,29 +3,19 @@
 option(ENABLE_UNIT_TESTS "Enable unit tests" ON)
 message(STATUS "Enable testing: ${ENABLE_UNIT_TESTS}")
 
-include(googletest.cmake)
+include(gtestResources/googletest.cmake)
 
 if(ENABLE_UNIT_TESTS)
   fetch_googletest(
-    ${CMAKE_CURRENT_SOURCE_DIR}
-    ${CMAKE_CURRENT_BINARY_DIR}/googletest
+    ${CMAKE_CURRENT_SOURCE_DIR}/gtestResources
+    ${CMAKE_CURRENT_BINARY_DIR}
     )
 
-  add_executable(unit_tests "")
+  add_executable(unit_tests ApplicationTests.cpp)
 
-  target_sources(
-    unit_tests
-    PRIVATE
-      # Test files to be included
-      Example.cpp
-    )
+  include_directories(src)
 
-  target_link_libraries(
-    unit_tests
-    PRIVATE
-      gtest_main
-      # libraries to be included? Possibly connected to src/CMakeLists.txt
-    )
+  target_link_libraries(unit_tests PRIVATE gtest_main gmock_main Application_lib)
 
   add_test(unit ${PROJECT_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/unit_tests)
 
