@@ -14,6 +14,7 @@ if(ENABLE_UNIT_TESTS)
   add_executable(unit_tests ApplicationTests.cpp)
 
   include_directories(src)
+  include_directories(mocks)
 
   target_link_libraries(unit_tests PRIVATE gtest_main gmock_main Application_lib)
 
