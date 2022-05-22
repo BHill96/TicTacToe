@@ -1,7 +1,9 @@
 #pragma once
 
+#include "structures/GameSettings.cpp"
+
 class IUI {
     public:
         virtual ~IUI() = default;
-        virtual void DisplayGameConfiguration() = 0;
+        virtual GameSettings DisplayGameOptions() = 0;
 };

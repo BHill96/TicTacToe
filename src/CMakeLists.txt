@@ -1,5 +1,8 @@
-set(Interfaces interfaces/IUI.h)
-add_library(Application_lib STATIC Application.cpp ${Interfaces})
+set(Interfaces interfaces/IUI.h
+               interfaces/IGameFactory.h)
+set(Structures structures/GameSettings.cpp)
+
+add_library(Application_lib STATIC Application.cpp ${Interfaces} ${Structures})
 target_include_directories(Application_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 add_executable(Application main.cpp)
