@@ -5,5 +5,5 @@
 
 class MockGameFactory : public IGameFactory {
     public:
-        MOCK_METHOD(void, CreateGame, (GameSettings), (override));
+        MOCK_METHOD(std::unique_ptr<ITicTacToeGame>, CreateGame, (GameSettings), (override));
 };

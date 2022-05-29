@@ -1,5 +1,6 @@
 set(Interfaces interfaces/IUI.h
-               interfaces/IGameFactory.h)
+               interfaces/IGameFactory.h
+               interfaces/ITicTacToeGame.h)
 set(Structures structures/GameSettings.cpp)
 
 add_library(Application_lib STATIC Application.cpp ${Interfaces} ${Structures})
