@@ -11,11 +11,10 @@ if(ENABLE_UNIT_TESTS)
     ${CMAKE_CURRENT_BINARY_DIR}
     )
 
-  add_executable(unit_tests ApplicationTests.cpp
-                            TicTacToeGameTests.cpp)
-
-  include_directories(src)
-  include_directories(mocks)
+  set(Tests tests/ApplicationTests.cpp
+            tests/TicTacToeGameTests.cpp)
+  
+  add_executable(unit_tests ${Tests})
 
   target_link_libraries(unit_tests PRIVATE gtest_main gmock_main Application_lib)
 
