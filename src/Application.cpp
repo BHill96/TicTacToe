@@ -8,8 +8,7 @@ Application::Application(std::unique_ptr<IUI> ui, std::unique_ptr<IGameFactory> 
 void Application::Run() {
     GameSettings gameSettings = ui->DisplayGameOptions();
     std::unique_ptr<ITicTacToeGame> tictactoeGame = gameFactory->CreateGame(gameSettings);
-    tictactoeGame->CheckGameState();
-    // play game until finished
+    tictactoeGame->PlayGame();
     // inform user of results
     // ask if they want to play again
 }

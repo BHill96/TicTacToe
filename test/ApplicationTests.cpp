@@ -22,7 +22,7 @@ class ApplicationTests : public::testing::Test {
             return Application(std::move(mockUI), std::move(mockGameFactory));
         }
 
-        void FactoryReturnGame() {
+        void FactoryReturnsGame() {
             ON_CALL(*mockGameFactory, CreateGame(testing::_))
                 .WillByDefault(testing::Return(testing::ByMove(std::move(mockTicTacToeGame))));
         }
@@ -30,7 +30,7 @@ class ApplicationTests : public::testing::Test {
 
 TEST_F(ApplicationTests, Run_ByDefault_CallDisplayGameOptions) {
     // Arrange
-    FactoryReturnGame();
+    FactoryReturnsGame();
 
     // Assert
     EXPECT_CALL(*mockUI, DisplayGameOptions());
@@ -44,7 +44,7 @@ TEST_F(ApplicationTests, Run_ByDefault_CallCreateGame) {
     // Arrange
     GameSettings gameSettings;
     EXPECT_CALL(*mockUI, DisplayGameOptions()).WillOnce(testing::Return(gameSettings));
-    FactoryReturnGame();
+    FactoryReturnsGame();
 
     // Assert
     EXPECT_CALL(*mockGameFactory, CreateGame(testing::An<GameSettings>()));
@@ -54,14 +54,12 @@ TEST_F(ApplicationTests, Run_ByDefault_CallCreateGame) {
     app.Run();
 }
 
-TEST_F(ApplicationTests, Run_ByDefault_CallCheckGameState) {
+TEST_F(ApplicationTests, Run_ByDefault_CallPlayGame) {
     // Arrange
-    std::unique_ptr<testing::NiceMock<MockTicTacToeGame>> mockTicTacToeGame = std::make_unique<testing::NiceMock<MockTicTacToeGame>>();
 
     // Assert
-    EXPECT_CALL(*mockTicTacToeGame, CheckGameState());
-    EXPECT_CALL(*mockGameFactory, CreateGame(testing::_))
-        .WillOnce(testing::Return(testing::ByMove(std::move(mockTicTacToeGame))));
+    EXPECT_CALL(*mockTicTacToeGame, PlayGame());
+    FactoryReturnsGame();
 
     // Act
     Application app = MakeApp();
