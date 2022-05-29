@@ -4,7 +4,9 @@ set(Interfaces interfaces/IUI.h
 set(Structures structures/GameSettings.cpp
                structures/GameResults.cpp)
 set(Entities entities/TicTacToeGame.h
-             entities/TicTacToeGame.cpp)
+             entities/TicTacToeGame.cpp
+             entities/GameFactory.h
+             entities/GameFactory.cpp)
 
 add_library(Application_lib STATIC Application.cpp ${Interfaces} ${Structures} ${Entities})
 target_include_directories(Application_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
