@@ -40,10 +40,6 @@ TEST_F(ApplicationTests, Run_ByDefault_CallDisplayGameOptions) {
     app.Run();
 }
 
-MATCHER_P(EqGameSettings,fact,"") {
-    return true;
-}
-
 TEST_F(ApplicationTests, Run_ByDefault_CallCreateGame) {
     // Arrange
     GameSettings gameSettings;
@@ -51,7 +47,7 @@ TEST_F(ApplicationTests, Run_ByDefault_CallCreateGame) {
     FactoryReturnGame();
 
     // Assert
-    EXPECT_CALL(*mockGameFactory, CreateGame(EqGameSettings(gameSettings)));
+    EXPECT_CALL(*mockGameFactory, CreateGame(testing::An<GameSettings>()));
 
     // Act
     Application app = MakeApp();
