@@ -6,4 +6,5 @@
 class MockUI : public IUI {
     public:
         MOCK_METHOD(GameSettings, DisplayGameOptions, (), (override));
+        MOCK_METHOD(void, DisplayGameResults, (GameResults), (override));
 };

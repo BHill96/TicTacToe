@@ -47,7 +47,7 @@ TEST_F(ApplicationTests, Run_ByDefault_CallCreateGame) {
     FactoryReturnsGame();
 
     // Assert
-    EXPECT_CALL(*mockGameFactory, CreateGame(testing::An<GameSettings>()));
+    EXPECT_CALL(*mockGameFactory, CreateGame(testing::A<GameSettings>()));
 
     // Act
     Application app = MakeApp();
@@ -59,6 +59,30 @@ TEST_F(ApplicationTests, Run_ByDefault_CallPlayGame) {
 
     // Assert
     EXPECT_CALL(*mockTicTacToeGame, PlayGame());
+    FactoryReturnsGame();
+
+    // Act
+    Application app = MakeApp();
+    app.Run();
+}
+
+TEST_F(ApplicationTests, Run_ByDefault_CallGetResults) {
+    // Arrange
+
+    // Assert
+    EXPECT_CALL(*mockTicTacToeGame, GetResults());
+    FactoryReturnsGame();
+
+    // Act
+    Application app = MakeApp();
+    app.Run();
+}
+
+TEST_F(ApplicationTests, Run_ByDefault_CallDisplayGameResults) {
+    // Arrange
+
+    // Assert
+    EXPECT_CALL(*mockUI, DisplayGameResults(testing::A<GameResults>()));
     FactoryReturnsGame();
 
     // Act

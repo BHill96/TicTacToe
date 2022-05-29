@@ -1,7 +1,8 @@
 set(Interfaces interfaces/IUI.h
                interfaces/IGameFactory.h
                interfaces/ITicTacToeGame.h)
-set(Structures structures/GameSettings.cpp)
+set(Structures structures/GameSettings.cpp
+               structures/GameResults.cpp)
 
 add_library(Application_lib STATIC Application.cpp ${Interfaces} ${Structures})
 target_include_directories(Application_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

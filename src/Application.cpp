@@ -1,4 +1,5 @@
 #include "Application.h"
+#include "structures/GameResults.cpp"
 
 Application::Application(std::unique_ptr<IUI> ui, std::unique_ptr<IGameFactory> gameFactory) {
     this->ui = std::move(ui);
@@ -9,6 +10,6 @@ void Application::Run() {
     GameSettings gameSettings = ui->DisplayGameOptions();
     std::unique_ptr<ITicTacToeGame> tictactoeGame = gameFactory->CreateGame(gameSettings);
     tictactoeGame->PlayGame();
-    // inform user of results
-    // ask if they want to play again
+    GameResults gameResults = tictactoeGame->GetResults();
+    ui->DisplayGameResults(gameResults);
 }
