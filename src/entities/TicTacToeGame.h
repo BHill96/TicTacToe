@@ -7,7 +7,6 @@ class TicTacToeGame : public ITicTacToeGame {
         
     public:
         TicTacToeGame();
-        void CheckGameState() override;
         void PlayGame() override;
         GameResults GetResults() override;
 };

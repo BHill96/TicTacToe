@@ -6,13 +6,10 @@ TicTacToeGame::TicTacToeGame() {
 
 }
 
-void TicTacToeGame::CheckGameState() {
-
-}
-
 void TicTacToeGame::PlayGame() {
 
 }
+
 GameResults TicTacToeGame::GetResults() {
-    
+
 }
