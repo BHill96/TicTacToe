@@ -1,7 +1,7 @@
 // provides unit testing infrastructure
 #include "gtest/gtest.h"
 
-#include "Application.h"
+#include "entities/Application.h"
 #include "mocks/MockUI.h"
 #include "mocks/MockGameFactory.h"
 #include "mocks/MockTicTacToeGame.h"
