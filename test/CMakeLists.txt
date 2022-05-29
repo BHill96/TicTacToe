@@ -11,7 +11,8 @@ if(ENABLE_UNIT_TESTS)
     ${CMAKE_CURRENT_BINARY_DIR}
     )
 
-  add_executable(unit_tests ApplicationTests.cpp)
+  add_executable(unit_tests ApplicationTests.cpp
+                            TicTacToeGameTests.cpp)
 
   include_directories(src)
   include_directories(mocks)
