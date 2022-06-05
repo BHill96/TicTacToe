@@ -11,9 +11,7 @@ if(ENABLE_UNIT_TESTS)
     ${CMAKE_CURRENT_BINARY_DIR}
     )
 
-  set(Tests tests/ApplicationTests.cpp
-            tests/TicTacToeGameTests.cpp
-            tests/GameFactoryTests.cpp)
+  set(Tests tests/ApplicationTests.cpp)
   
   add_executable(unit_tests ${Tests})
 

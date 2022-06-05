@@ -1,7 +1,7 @@
 #include "Application.h"
 #include "structures/GameResults.cpp"
 
-Application::Application(std::unique_ptr<IUI> ui, std::unique_ptr<IGameFactory> gameFactory) {
+Application::Application(std::unique_ptr<IUI> ui, std::unique_ptr<ITicTacToeGameFactory> gameFactory) {
     this->ui = std::move(ui);
     this->gameFactory = std::move(gameFactory);
 }

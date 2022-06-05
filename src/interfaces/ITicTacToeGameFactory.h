@@ -5,8 +5,8 @@
 
  #include <memory>
 
-class IGameFactory {
+class ITicTacToeGameFactory {
     public:
-        virtual ~IGameFactory() = default;
+        virtual ~ITicTacToeGameFactory() = default;
         virtual std::unique_ptr<ITicTacToeGame> CreateGame(GameSettings) = 0;
 };

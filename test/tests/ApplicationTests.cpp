@@ -3,18 +3,18 @@
 
 #include "Application.h"
 #include "mocks/MockUI.h"
-#include "mocks/MockGameFactory.h"
+#include "mocks/MockTicTacToeGameFactory.h"
 #include "mocks/MockTicTacToeGame.h"
 
 class ApplicationTests : public::testing::Test {
 	public:
         std::unique_ptr<testing::NiceMock<MockUI>> mockUI;
-        std::unique_ptr<testing::NiceMock<MockGameFactory>> mockGameFactory;
+        std::unique_ptr<testing::NiceMock<MockTicTacToeGameFactory>> mockGameFactory;
         std::unique_ptr<testing::NiceMock<MockTicTacToeGame>> mockTicTacToeGame;
 
         void SetUp() override {
             mockUI = std::make_unique<testing::NiceMock<MockUI>>();
-            mockGameFactory = std::make_unique<testing::NiceMock<MockGameFactory>>();
+            mockGameFactory = std::make_unique<testing::NiceMock<MockTicTacToeGameFactory>>();
             mockTicTacToeGame = std::make_unique<testing::NiceMock<MockTicTacToeGame>>();
         }
 

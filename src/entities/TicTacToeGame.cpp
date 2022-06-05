@@ -2,7 +2,7 @@
 
 #include "entities/TicTacToeGame.h"
 
-TicTacToeGame::TicTacToeGame() {
+TicTacToeGame::TicTacToeGame(GameSettings gameSettings) {
 
 }
 

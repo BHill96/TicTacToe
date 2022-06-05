@@ -1,9 +1,9 @@
 #pragma once
 
 #include "gmock/gmock.h"
-#include "interfaces/IGameFactory.h"
+#include "interfaces/ITicTacToeGameFactory.h"
 
-class MockGameFactory : public IGameFactory {
+class MockTicTacToeGameFactory : public ITicTacToeGameFactory {
     public:
         MOCK_METHOD(std::unique_ptr<ITicTacToeGame>, CreateGame, (GameSettings), (override));
 };
