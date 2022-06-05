@@ -1,15 +1,12 @@
-#pragma once
-
 #include "entities/TicTacToeGame.h"
 
-TicTacToeGame::TicTacToeGame(GameSettings gameSettings) {
-
+TicTacToeGame::TicTacToeGame(std::shared_ptr<GameSettings> gameSettings) {
+    playerQueue = gameSettings->playerQueue;
+    board = gameSettings->board;
 }
 
-void TicTacToeGame::PlayGame() {
-
-}
-
-GameResults TicTacToeGame::GetResults() {
-
+GameResults TicTacToeGame::PlayGame() {
+    std::shared_ptr<IPlayer> player = playerQueue->Front();
+    player->Turn(board);
+    playerQueue->Next();
 }

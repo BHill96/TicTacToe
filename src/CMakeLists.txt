@@ -1,6 +1,9 @@
 set(Interfaces interfaces/IUI.h
                interfaces/ITicTacToeGameFactory.h
-               interfaces/ITicTacToeGame.h)
+               interfaces/ITicTacToeGame.h
+               interfaces/IPlayerQueue.h
+               interfaces/IPlayer.h
+               interfaces/IBoard.h)
 set(Structures structures/GameSettings.cpp
                structures/GameResults.cpp)
 set(Entities entities/TicTacToeGame.h

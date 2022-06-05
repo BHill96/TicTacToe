@@ -66,18 +66,6 @@ TEST_F(ApplicationTests, Run_ByDefault_CallPlayGame) {
     app.Run();
 }
 
-TEST_F(ApplicationTests, Run_ByDefault_CallGetResults) {
-    // Arrange
-
-    // Assert
-    EXPECT_CALL(*mockTicTacToeGame, GetResults());
-    FactoryReturnsGame();
-
-    // Act
-    Application app = MakeApp();
-    app.Run();
-}
-
 TEST_F(ApplicationTests, Run_ByDefault_CallDisplayGameResults) {
     // Arrange
 

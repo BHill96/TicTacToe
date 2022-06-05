@@ -5,9 +5,11 @@
 
 class TicTacToeGame : public ITicTacToeGame {
     private:
+        std::shared_ptr<IPlayerQueue> playerQueue;
+        std::shared_ptr<IBoard> board;
         
     public:
-        TicTacToeGame(GameSettings);
-        void PlayGame() override;
-        GameResults GetResults() override;
+        TicTacToeGame(std::shared_ptr<GameSettings>);
+        ~TicTacToeGame() = default;
+        GameResults PlayGame() override;
 };

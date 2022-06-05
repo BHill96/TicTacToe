@@ -9,7 +9,6 @@ Application::Application(std::unique_ptr<IUI> ui, std::unique_ptr<ITicTacToeGame
 void Application::Run() {
     GameSettings gameSettings = ui->DisplayGameOptions();
     std::unique_ptr<ITicTacToeGame> tictactoeGame = gameFactory->CreateGame(gameSettings);
-    tictactoeGame->PlayGame();
-    GameResults gameResults = tictactoeGame->GetResults();
+    GameResults gameResults = tictactoeGame->PlayGame();
     ui->DisplayGameResults(gameResults);
 }
