@@ -10,6 +10,9 @@
 class GUI : public IUI {
     private:
         GLFWwindow* window = NULL;
+        const int fontSize = 12;
+        const int windowWidth = 1280;
+        const int windowHeight = 720;
 
     public:
         ~GUI() = default;
