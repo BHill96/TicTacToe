@@ -48,8 +48,7 @@ void GUI::CheckWindowForChanges() {
 }
 
 void GUI::DrawDemoWindow() {
-    bool showDemoWindow = true;
-    ImGui::ShowDemoWindow(&showDemoWindow);
+    ImGui::ShowDemoWindow();
 }
 
 bool GUI::WindowOpen() {
@@ -75,6 +74,8 @@ void GUI::Render() {
     glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
     glClear(GL_COLOR_BUFFER_BIT);
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+    glfwMakeContextCurrent(window);
+    glfwSwapBuffers(window);
 }
 
 void GUI::Cleanup() {
