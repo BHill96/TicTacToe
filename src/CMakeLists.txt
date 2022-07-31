@@ -79,6 +79,8 @@ SET(SOURCES "interfaces/IBoard.h"
             "structures/GameSettings.cpp"
             "entities/TicTacToeGame.h"
             "entities/TicTacToeGame.cpp"
+            "entities/TicTacToeGameFactory.h"
+            "entities/TicTacToeGameFactory.cpp"
             "ui/GUI.h"
             "ui/GUI.cpp")
 

@@ -8,6 +8,7 @@ class IUI {
         virtual ~IUI() = default;
         virtual void SetUp() = 0;
         virtual void CheckWindowForChanges() = 0;
+        virtual void DrawDemoWindow() = 0;
         virtual bool WindowOpen() = 0;
         virtual GameSettings DisplayGameOptions() = 0;
         virtual void DisplayGameResults(GameResults) = 0;
