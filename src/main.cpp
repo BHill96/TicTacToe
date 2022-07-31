@@ -14,6 +14,7 @@ int main()
 {
     std::cout << "Hello World!" << std::endl;
 
+    // ui->setup()
     glfwSetErrorCallback(glfw_error_callback);
     if (!glfwInit())
         return 1;

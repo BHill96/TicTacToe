@@ -7,10 +7,26 @@ Application::Application(std::unique_ptr<IUI> ui, std::unique_ptr<ITicTacToeGame
 }
 
 void Application::Run() {
+    std::unique_ptr<ITicTacToeGame> tictactoeGame = nullptr;
+    GameResults gameResults;
 
+    ui->SetUp();
+    do {
+        ui->CheckWindowForChanges();
+        GameSettings gameSettings = ui->DisplayGameOptions();
+        
+        if (gameSettings.createGame) {
+            tictactoeGame = gameFactory->CreateGame(gameSettings);
+        }
+        if (tictactoeGame) {
+            gameResults = tictactoeGame->PlayGame();
+            if (gameResults.Finished) {
+                ui->DisplayGameResults(gameResults);
+            }
+        }
 
-    GameSettings gameSettings = ui->DisplayGameOptions();
-    std::unique_ptr<ITicTacToeGame> tictactoeGame = gameFactory->CreateGame(gameSettings);
-    GameResults gameResults = tictactoeGame->PlayGame();
-    ui->DisplayGameResults(gameResults);
+        ui->Render();
+    } while (ui->WindowOpen());
+ 
+    ui->Cleanup();
 }
