@@ -5,5 +5,5 @@
 
 class IPlayer {
     public:
-        virtual void Turn(std::shared_ptr<IBoard>) = 0;
+        virtual bool Turn(std::shared_ptr<IBoard>) = 0;
 };

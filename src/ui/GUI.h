@@ -21,7 +21,7 @@ class GUI : public IUI {
         void DrawDemoWindow() override;
         bool WindowOpen() override;
         GameSettings DisplayGameOptions() override;
-        void DisplayGameResults(GameResults) override;
+        void DisplayGameResults(GameStatus) override;
         void Render() override;
         void Cleanup() override;
 };

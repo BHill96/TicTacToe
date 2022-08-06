@@ -20,7 +20,8 @@ class TicTacToeGameTests : public::testing::Test {
 
         std::shared_ptr<GameSettings> MakeGameSettings() {
             return std::make_shared<GameSettings>(
-                GameSettings {.playerQueue = mockPlayerQueue,
+                GameSettings {
+                    .playerQueue = mockPlayerQueue,
                     .board = mockBoard}
             );
         }
@@ -34,104 +35,124 @@ class TicTacToeGameTests : public::testing::Test {
                 .WillByDefault(testing::Return(mockPlayer));
         }
 
-        void ExitPlayGame() {
-            ON_CALL(*mockBoard, CheckState())
-                .WillByDefault(testing::Return(BoardState::Finished));
+        void PlayerTurnFinished() {
+            ON_CALL(*mockPlayer, Turn(testing::_))
+                .WillByDefault(testing::Return(true));
         }
 
-        GameResults MakeTrueGameResults(std::shared_ptr<MockPlayer> winner,
-            std::shared_ptr<MockPlayer> loser) {
-            return GameResults {
-                .Winner = winner,
-                .Loser = loser,
-                .Board = mockBoard
-            };
+        void BoardStateIs(BoardState state) {
+            ON_CALL(*mockBoard, CheckState())
+                .WillByDefault(testing::Return(state));
         }
 };
 
 TEST_F(TicTacToeGameTests, PlayGame_ByDefault_playerQueueFrontCalled) {
     // Arrange
-    ExitPlayGame();
 
     // Assert
     EXPECT_CALL(*mockPlayerQueue, Front())
-        .WillRepeatedly(testing::Return(mockPlayer));
+        .WillOnce(testing::Return(mockPlayer));
 
     // Act
-    std::shared_ptr<GameSettings> settings = MakeGameSettings();
-    TicTacToeGame game = MakeTicTacToeGame(settings);
-    GameResults results = game.PlayGame();
+    TicTacToeGame game = MakeTicTacToeGame(MakeGameSettings());
+    GameStatus _ = game.PlayGame();
 }
 
 TEST_F(TicTacToeGameTests, PlayGame_ByDefault_playerTurnCalled) {
     // Arrange
     PlayerQueueReturnPlayer();
-    ExitPlayGame();
     
     // Assert
     EXPECT_CALL(*mockPlayer, Turn(testing::TypedEq<std::shared_ptr<IBoard>>(mockBoard)));
 
     // Act
-    std::shared_ptr<GameSettings> settings = MakeGameSettings();
-    TicTacToeGame game = MakeTicTacToeGame(settings);
-    GameResults results = game.PlayGame();
+    TicTacToeGame game = MakeTicTacToeGame(MakeGameSettings());
+    GameStatus _ = game.PlayGame();
 }
 
-TEST_F(TicTacToeGameTests, PlayGame_ByDefault_boardCheckStateCalled) {
+// TEST_F(TicTacToeGameTests, PlayGame_TurnNotFinished_ReturnEmptyGameStatus) {
+//     // Arrange
+//     PlayerQueueReturnPlayer();
+//     ON_CALL(*mockPlayer, Turn(testing::TypedEq<std::shared_ptr<IBoard>>(mockBoard)))
+//         .WillByDefault(testing::Return(false));
+
+//     // Act
+//     TicTacToeGame game = MakeTicTacToeGame(MakeGameSettings());
+//     GameStatus status = game.PlayGame();
+
+//     // Assert
+//     GameStatus trueStatus;
+//     ASSERT_EQ(status, trueStatus);
+// }
+
+TEST_F(TicTacToeGameTests, PlayGame_PlayerTurnFinished_CheckBoardState) {
     // Arrange
     PlayerQueueReturnPlayer();
-    ExitPlayGame();
+    PlayerTurnFinished();
     
     // Assert
     EXPECT_CALL(*mockBoard, CheckState());
 
     // Act
-    std::shared_ptr<GameSettings> settings = MakeGameSettings();
-    TicTacToeGame game = MakeTicTacToeGame(settings);
-    GameResults results = game.PlayGame();
+    TicTacToeGame game = MakeTicTacToeGame(MakeGameSettings());
+    GameStatus _ = game.PlayGame();
 }
 
-TEST_F(TicTacToeGameTests, PlayGame_ByDefault_playerQueueNextCalled) {
+TEST_F(TicTacToeGameTests, PlayGame_BoardStateInProgress_CallPlayerQueueNext) {
     // Arrange
     PlayerQueueReturnPlayer();
-    ExitPlayGame();
+    PlayerTurnFinished();
+    BoardStateIs(BoardState::InProgress);
     
     // Assert
-    EXPECT_CALL(*mockPlayerQueue, Next()).Times(2);
+    EXPECT_CALL(*mockPlayerQueue, Next());
 
     // Act
-    std::shared_ptr<GameSettings> settings = MakeGameSettings();
-    TicTacToeGame game = MakeTicTacToeGame(settings);
-    GameResults results = game.PlayGame();
+    TicTacToeGame game = MakeTicTacToeGame(MakeGameSettings());
+    GameStatus _ = game.PlayGame();
 }
 
-MATCHER_P(EqGameResults, result, "") {
-    bool winners = result.Winner == arg.Winner;
-    bool losers = result.Loser == arg.Loser;
-    bool board = result.Board == arg.Board;
-    return winners && losers;
-}
+// TEST_F(TicTacToeGameTests, PlayGame_BoardStateDraw_CreateDrawResults) {
+//     // Arrange
+//     PlayerQueueReturnPlayer();
+//     PlayerTurnFinished();
+//     BoardStateIs(BoardState::Draw);
 
-TEST_F(TicTacToeGameTests, PlayGame_ByDefault_CreateProperGameResults) {
-    // Arrange
-    ExitPlayGame();
-    std::shared_ptr<testing::NiceMock<MockPlayer>> winner
-        = std::make_shared<testing::NiceMock<MockPlayer>>();
-    std::shared_ptr<testing::NiceMock<MockPlayer>> loser
-        = std::make_shared<testing::NiceMock<MockPlayer>>();
+//     // Act
+//     TicTacToeGame game = MakeTicTacToeGame(MakeGameSettings());
+//     GameStatus status = game.PlayGame();
 
-    // AssertW
-    EXPECT_CALL(*mockPlayerQueue, Front())
-        .WillOnce(testing::Return(mockPlayer))
-        .WillOnce(testing::Return(loser))
-        .WillOnce(testing::Return(winner));
+//     // Assert
+//     GameStatus trueStatus {
+//         .Finished = true,
+//         .Draw = true
+//     };
+//     ASSERT_EQ(trueStatus, status);
+// }
 
-    // Act
-    std::shared_ptr<GameSettings> settings = MakeGameSettings();
-    TicTacToeGame game = MakeTicTacToeGame(settings);
-    GameResults results = game.PlayGame();
+// TEST_F(TicTacToeGameTests, PlayGame_BoardStateWinner_CreateWinnerResults) {
+//     // Arrange
+//     std::shared_ptr<testing::NiceMock<MockPlayer>> mockPlayer1 =
+//         std::make_shared<testing::NiceMock<MockPlayer>>();
+//     std::shared_ptr<testing::NiceMock<MockPlayer>> mockPlayer2 =
+//         std::make_shared<testing::NiceMock<MockPlayer>>();
+//     EXPECT_CALL(*mockPlayerQueue, Front())
+//         .WillOnce(testing::Return(mockPlayer))
+//         .WillOnce(testing::Return(mockPlayer1))
+//         .WillOnce(testing::Return(mockPlayer2));
+//     PlayerTurnFinished();
+//     BoardStateIs(BoardState::Winner);
+//     EXPECT_CALL(*mockPlayerQueue, Next());
 
-    // Assert
-    GameResults trueResults = MakeTrueGameResults(winner, loser);
-    EXPECT_THAT(results, EqGameResults(trueResults));
-}
+//     // Act
+//     TicTacToeGame game = MakeTicTacToeGame(MakeGameSettings());
+//     GameStatus status = game.PlayGame();
+
+//     // Assert
+//     GameStatus trueStatus {
+//         .Finished = true,
+//         .Winner = mockPlayer1,
+//         .Loser = mockPlayer2,
+//     };
+//     ASSERT_EQ(trueStatus, status);
+// }

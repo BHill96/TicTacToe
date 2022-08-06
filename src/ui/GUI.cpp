@@ -122,7 +122,7 @@ GameSettings GUI::DisplayGameOptions() {
     return settings;
 }
 
-void GUI::DisplayGameResults(GameResults gameResults) {
+void GUI::DisplayGameResults(GameStatus gameStatus) {
 
 }
 

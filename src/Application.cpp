@@ -1,5 +1,5 @@
 #include "Application.h"
-#include "structures/GameResults.cpp"
+#include "structures/GameStatus.cpp"
 
 #include <iostream>
 
@@ -10,7 +10,7 @@ Application::Application(std::unique_ptr<IUI> ui, std::unique_ptr<ITicTacToeGame
 
 void Application::Run() {
     std::unique_ptr<ITicTacToeGame> tictactoeGame = nullptr;
-    GameResults gameResults;
+    GameStatus gameStatus;
 
     std::cout << "Setting up..." << std::endl;
     ui->SetUp();
@@ -30,10 +30,10 @@ void Application::Run() {
         }
         if (tictactoeGame) {
             std::cout << "Playing Game..." << std::endl;
-            gameResults = tictactoeGame->PlayGame();
-            if (gameResults.Finished) {
+            gameStatus = tictactoeGame->PlayGame();
+            if (gameStatus.Finished) {
                 std::cout << "Displaying Results..." << std::endl;
-                ui->DisplayGameResults(gameResults);
+                ui->DisplayGameResults(gameStatus);
             }
         }
 

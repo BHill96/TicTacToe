@@ -1,8 +1,9 @@
 #pragma once
 
 enum BoardState {
-    InProgress,
-    Finished
+    InProgress = 0,
+    Draw = 1,
+    Winner = 2
 };
 
 class IBoard {

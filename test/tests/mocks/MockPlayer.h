@@ -5,5 +5,5 @@
 
 class MockPlayer : public IPlayer {
     public:
-        MOCK_METHOD(void, Turn, (std::shared_ptr<IBoard>), (override));
+        MOCK_METHOD(bool, Turn, (std::shared_ptr<IBoard>), (override));
 };

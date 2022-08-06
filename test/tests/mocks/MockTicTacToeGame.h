@@ -5,5 +5,5 @@
 
 class MockTicTacToeGame : public ITicTacToeGame {
     public:
-        MOCK_METHOD(GameResults, PlayGame, (), (override));
+        MOCK_METHOD(GameStatus, PlayGame, (), (override));
 };

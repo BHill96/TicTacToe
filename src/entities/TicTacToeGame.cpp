@@ -5,21 +5,23 @@ TicTacToeGame::TicTacToeGame(std::shared_ptr<GameSettings> gameSettings) {
     board = gameSettings->board;
 }
 
-GameResults TicTacToeGame::PlayGame() {
-    BoardState boardState = BoardState::InProgress;
-    do {
-        std::shared_ptr<IPlayer> player = playerQueue->Front();
-        player->Turn(board);
-        boardState = board->CheckState();
-        playerQueue->Next();
-    } while (boardState == BoardState::InProgress);
-
-    std::shared_ptr<IPlayer> loser = playerQueue->Front();
-    playerQueue->Next();
-    std::shared_ptr<IPlayer> winner = playerQueue->Front();
-    return GameResults {
-        .Loser = loser,
-        .Winner = winner,
-        .Board = board
-    };
+GameStatus TicTacToeGame::PlayGame() {
+    GameStatus status;
+    std::shared_ptr<IPlayer> player = playerQueue->Front();
+    bool turnFinished = player->Turn(board);
+    if (turnFinished) {
+        BoardState boardState = board->CheckState();
+        if (boardState==BoardState::InProgress) {
+            playerQueue->Next();
+        }
+    //   else if boardState Draw
+    //      results.Finished = true;
+    //      results.Draw = true;
+    //   else if boardState Winner
+    //      results.Winner = playerQueue->Front();
+    //      playerQueue->Next();
+    //      results.Loser = playerQueue->Front(); 
+    //      results.Finished = true;
+    }
+    return status;
 }

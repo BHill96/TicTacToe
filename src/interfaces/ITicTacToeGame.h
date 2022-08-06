@@ -1,9 +1,9 @@
 #pragma once
 
-#include "structures/GameResults.cpp"
+#include "structures/GameStatus.cpp"
 
 class ITicTacToeGame {
     public:
         virtual ~ITicTacToeGame() = default;
-        virtual GameResults PlayGame() = 0;
+        virtual GameStatus PlayGame() = 0;
 };

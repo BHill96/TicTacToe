@@ -116,13 +116,13 @@ TEST_F(ApplicationTests, Run_ByDefault_CallPlayGame) {
 
 TEST_F(ApplicationTests, Run_ByDefault_CallDisplayGameResults) {
     // Arrange
-    GameResults gameResults;
-    gameResults.Finished = true;
+    GameStatus gameStatus;
+    gameStatus.Finished = true;
     ON_CALL(*mockTicTacToeGame, PlayGame())
-        .WillByDefault(testing::Return(gameResults));
+        .WillByDefault(testing::Return(gameStatus));
 
     // Assert
-    EXPECT_CALL(*mockUI, DisplayGameResults(testing::A<GameResults>()));
+    EXPECT_CALL(*mockUI, DisplayGameResults(testing::A<GameStatus>()));
     FactoryReturnsGame();
 
     // Act

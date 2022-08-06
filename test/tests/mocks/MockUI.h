@@ -10,7 +10,7 @@ class MockUI : public IUI {
         MOCK_METHOD(void, DrawDemoWindow, (), (override));
         MOCK_METHOD(bool, WindowOpen, (), (override));
         MOCK_METHOD(GameSettings, DisplayGameOptions, (), (override));
-        MOCK_METHOD(void, DisplayGameResults, (GameResults), (override));
+        MOCK_METHOD(void, DisplayGameResults, (GameStatus), (override));
         MOCK_METHOD(void, Render, (), (override));
         MOCK_METHOD(void, Cleanup, (), (override));
 };
