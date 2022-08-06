@@ -18,15 +18,14 @@ class TicTacToeGameTests : public::testing::Test {
             mockBoard = std::make_shared<testing::NiceMock<MockBoard>>();
         }
 
-        std::shared_ptr<GameSettings> MakeGameSettings() {
-            return std::make_shared<GameSettings>(
-                GameSettings {
+        GameSettings MakeGameSettings() {
+            return GameSettings {
                     .playerQueue = mockPlayerQueue,
-                    .board = mockBoard}
-            );
+                    .board = mockBoard
+            };
         }
 
-        TicTacToeGame MakeTicTacToeGame(std::shared_ptr<GameSettings> settings) {
+        TicTacToeGame MakeTicTacToeGame(GameSettings settings) {
             return TicTacToeGame(settings);
         }
 

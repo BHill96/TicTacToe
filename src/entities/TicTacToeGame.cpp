@@ -1,8 +1,8 @@
 #include "entities/TicTacToeGame.h"
 
-TicTacToeGame::TicTacToeGame(std::shared_ptr<GameSettings> gameSettings) {
-    playerQueue = gameSettings->playerQueue;
-    board = gameSettings->board;
+TicTacToeGame::TicTacToeGame(GameSettings gameSettings) {
+    playerQueue = gameSettings.playerQueue;
+    board = gameSettings.board;
 }
 
 GameStatus TicTacToeGame::PlayGame() {

@@ -10,7 +10,7 @@ class TicTacToeGame : public ITicTacToeGame {
         BoardState boardState;
         
     public:
-        TicTacToeGame(std::shared_ptr<GameSettings>);
+        TicTacToeGame(GameSettings);
         ~TicTacToeGame() = default;
         GameStatus PlayGame() override;
 };
