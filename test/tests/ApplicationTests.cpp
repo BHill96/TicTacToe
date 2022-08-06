@@ -11,6 +11,7 @@ class ApplicationTests : public::testing::Test {
         std::unique_ptr<testing::NiceMock<MockUI>> mockUI;
         std::unique_ptr<testing::NiceMock<MockTicTacToeGameFactory>> mockGameFactory;
         std::unique_ptr<testing::NiceMock<MockTicTacToeGame>> mockTicTacToeGame;
+        
 
         void SetUp() override {
             mockUI = std::make_unique<testing::NiceMock<MockUI>>();

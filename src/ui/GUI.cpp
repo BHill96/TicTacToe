@@ -62,30 +62,31 @@ bool GUI::WindowOpen() {
 //   gotta find a way around this. Can I hide the label of input boxes?
 GameSettings GUI::DisplayGameOptions() {
     GameSettings settings;
-
+    
+    const float indent = 79.5;
     int width = 10+fontSize*48;
     int height = 10+fontSize*12;
-    static char name0 [256] = "Player 1";
-    static char name1 [256] = "Player 2";
+    static char playerOneName [256] = "Name";
+    static char playerTwoName [256] = "Name";
     std::vector<std::string> playerTypes = {"Human","AI"};
-    static int index0 = 0;
-    static int index1 = 0;
+    static int playerOneIndex = 0;
+    static int playerTwoIndex = 0;
 
     ImGui::SetNextWindowSize(ImVec2(width, height));
-    ImGui::SetNextWindowPos(ImVec2(0.5*windowWidth,0.01*windowHeight));
+    ImGui::SetNextWindowPos(ImVec2(0.53*windowWidth,0.01*windowHeight));
     ImGuiWindowFlags flags = ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse;
     ImGui::Begin("Settings",NULL,flags);
-    ImGui::Text("Name: ");
+    ImGui::Text("Player 1: ");
     ImGui::SameLine();
-    ImGui::InputText(" ", name0, IM_ARRAYSIZE(name0));
-    ImGui::SameLine();
-    const char* playerType0 = playerTypes[index0].c_str();
-    if (ImGui::BeginCombo("Player 1 Type", playerType0)) {
+    ImGui::InputText("Player One Name", playerOneName, IM_ARRAYSIZE(playerOneName));
+    ImGui::Indent(indent);
+    const char* playerOneType = playerTypes[playerOneIndex].c_str();
+    if (ImGui::BeginCombo("Player One Type", playerOneType)) {
         for (int i = 0; i < playerTypes.size(); i++) {
-            bool selected = (playerType0 == playerTypes[i].c_str());
+            bool selected = (playerOneType == playerTypes[i].c_str());
             if (ImGui::Selectable(playerTypes[i].c_str(), selected)) {
-                playerType0 = playerTypes[i].c_str();
-                index0 = i;
+                playerOneType = playerTypes[i].c_str();
+                playerOneIndex = i;
             }
             if (selected) {
                 ImGui::SetItemDefaultFocus();
@@ -93,17 +94,18 @@ GameSettings GUI::DisplayGameOptions() {
         }
         ImGui::EndCombo();
     };
-    ImGui::Text("Name: ");
+    ImGui::Unindent(indent);
+    ImGui::Text("Player 2: ");
     ImGui::SameLine();
-    ImGui::InputText("  ", name1, IM_ARRAYSIZE(name1));
-    ImGui::SameLine();
-    const char* playerType1 = playerTypes[index1].c_str();
-    if (ImGui::BeginCombo("Player 2 Type", playerType1)) {
+    ImGui::InputText("Player Two Name", playerTwoName, IM_ARRAYSIZE(playerTwoName));
+    ImGui::Indent(indent);
+    const char* playerTwoType = playerTypes[playerTwoIndex].c_str();
+    if (ImGui::BeginCombo("Player Two Type", playerTwoType)) {
         for (int i = 0; i < playerTypes.size(); i++) {
-            bool selected = (playerType1 == playerTypes[i].c_str());
+            bool selected = (playerTwoType == playerTypes[i].c_str());
             if (ImGui::Selectable(playerTypes[i].c_str(), selected)) {
-                playerType1 = playerTypes[i].c_str();
-                index1 = i;
+                playerTwoType = playerTypes[i].c_str();
+                playerTwoIndex = i;
             }
             if (selected) {
                 ImGui::SetItemDefaultFocus();
