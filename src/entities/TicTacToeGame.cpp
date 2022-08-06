@@ -11,17 +11,17 @@ GameStatus TicTacToeGame::PlayGame() {
     bool turnFinished = player->Turn(board);
     if (turnFinished) {
         BoardState boardState = board->CheckState();
-        if (boardState==BoardState::InProgress) {
+        if (boardState == BoardState::InProgress) {
             playerQueue->Next();
+        } else if (boardState == BoardState::Draw) {
+            status.Finished = true;
+            status.Draw = true;
+        } else if (boardState == BoardState::Winner) {
+            status.Finished = true;
+            status.Winner = playerQueue->Front();
+            playerQueue->Next();
+            status.Loser = playerQueue->Front(); 
         }
-    //   else if boardState Draw
-    //      results.Finished = true;
-    //      results.Draw = true;
-    //   else if boardState Winner
-    //      results.Winner = playerQueue->Front();
-    //      playerQueue->Next();
-    //      results.Loser = playerQueue->Front(); 
-    //      results.Finished = true;
     }
     return status;
 }

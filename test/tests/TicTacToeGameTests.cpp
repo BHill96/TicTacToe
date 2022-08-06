@@ -70,20 +70,28 @@ TEST_F(TicTacToeGameTests, PlayGame_ByDefault_playerTurnCalled) {
     GameStatus _ = game.PlayGame();
 }
 
-// TEST_F(TicTacToeGameTests, PlayGame_TurnNotFinished_ReturnEmptyGameStatus) {
-//     // Arrange
-//     PlayerQueueReturnPlayer();
-//     ON_CALL(*mockPlayer, Turn(testing::TypedEq<std::shared_ptr<IBoard>>(mockBoard)))
-//         .WillByDefault(testing::Return(false));
+MATCHER_P(EqGameStatus, status, "") {
+    bool finished = arg.Finished == status.Finished;
+    bool draw = arg.Draw == status.Draw;
+    bool winner = arg.Winner == status.Winner;
+    bool loser = arg.Loser == status.Loser;
+    return finished && draw && winner && loser;
+}
 
-//     // Act
-//     TicTacToeGame game = MakeTicTacToeGame(MakeGameSettings());
-//     GameStatus status = game.PlayGame();
+TEST_F(TicTacToeGameTests, PlayGame_TurnNotFinished_ReturnEmptyGameStatus) {
+    // Arrange
+    PlayerQueueReturnPlayer();
+    ON_CALL(*mockPlayer, Turn(testing::TypedEq<std::shared_ptr<IBoard>>(mockBoard)))
+        .WillByDefault(testing::Return(false));
 
-//     // Assert
-//     GameStatus trueStatus;
-//     ASSERT_EQ(status, trueStatus);
-// }
+    // Act
+    TicTacToeGame game = MakeTicTacToeGame(MakeGameSettings());
+    GameStatus status = game.PlayGame();
+
+    // Assert
+    GameStatus trueStatus;
+    EXPECT_THAT(status, EqGameStatus(trueStatus));
+}
 
 TEST_F(TicTacToeGameTests, PlayGame_PlayerTurnFinished_CheckBoardState) {
     // Arrange
@@ -112,47 +120,47 @@ TEST_F(TicTacToeGameTests, PlayGame_BoardStateInProgress_CallPlayerQueueNext) {
     GameStatus _ = game.PlayGame();
 }
 
-// TEST_F(TicTacToeGameTests, PlayGame_BoardStateDraw_CreateDrawResults) {
-//     // Arrange
-//     PlayerQueueReturnPlayer();
-//     PlayerTurnFinished();
-//     BoardStateIs(BoardState::Draw);
+TEST_F(TicTacToeGameTests, PlayGame_BoardStateDraw_CreateDrawResults) {
+    // Arrange
+    PlayerQueueReturnPlayer();
+    PlayerTurnFinished();
+    BoardStateIs(BoardState::Draw);
 
-//     // Act
-//     TicTacToeGame game = MakeTicTacToeGame(MakeGameSettings());
-//     GameStatus status = game.PlayGame();
+    // Act
+    TicTacToeGame game = MakeTicTacToeGame(MakeGameSettings());
+    GameStatus status = game.PlayGame();
 
-//     // Assert
-//     GameStatus trueStatus {
-//         .Finished = true,
-//         .Draw = true
-//     };
-//     ASSERT_EQ(trueStatus, status);
-// }
+    // Assert
+    GameStatus trueStatus {
+        .Finished = true,
+        .Draw = true
+    };
+    EXPECT_THAT(status, EqGameStatus(trueStatus));
+}
 
-// TEST_F(TicTacToeGameTests, PlayGame_BoardStateWinner_CreateWinnerResults) {
-//     // Arrange
-//     std::shared_ptr<testing::NiceMock<MockPlayer>> mockPlayer1 =
-//         std::make_shared<testing::NiceMock<MockPlayer>>();
-//     std::shared_ptr<testing::NiceMock<MockPlayer>> mockPlayer2 =
-//         std::make_shared<testing::NiceMock<MockPlayer>>();
-//     EXPECT_CALL(*mockPlayerQueue, Front())
-//         .WillOnce(testing::Return(mockPlayer))
-//         .WillOnce(testing::Return(mockPlayer1))
-//         .WillOnce(testing::Return(mockPlayer2));
-//     PlayerTurnFinished();
-//     BoardStateIs(BoardState::Winner);
-//     EXPECT_CALL(*mockPlayerQueue, Next());
+TEST_F(TicTacToeGameTests, PlayGame_BoardStateWinner_CreateWinnerResults) {
+    // Arrange
+    std::shared_ptr<testing::NiceMock<MockPlayer>> mockPlayer1 =
+        std::make_shared<testing::NiceMock<MockPlayer>>();
+    std::shared_ptr<testing::NiceMock<MockPlayer>> mockPlayer2 =
+        std::make_shared<testing::NiceMock<MockPlayer>>();
+    EXPECT_CALL(*mockPlayerQueue, Front())
+        .WillOnce(testing::Return(mockPlayer))
+        .WillOnce(testing::Return(mockPlayer1))
+        .WillOnce(testing::Return(mockPlayer2));
+    PlayerTurnFinished();
+    BoardStateIs(BoardState::Winner);
+    EXPECT_CALL(*mockPlayerQueue, Next());
 
-//     // Act
-//     TicTacToeGame game = MakeTicTacToeGame(MakeGameSettings());
-//     GameStatus status = game.PlayGame();
+    // Act
+    TicTacToeGame game = MakeTicTacToeGame(MakeGameSettings());
+    GameStatus status = game.PlayGame();
 
-//     // Assert
-//     GameStatus trueStatus {
-//         .Finished = true,
-//         .Winner = mockPlayer1,
-//         .Loser = mockPlayer2,
-//     };
-//     ASSERT_EQ(trueStatus, status);
-// }
+    // Assert
+    GameStatus trueStatus {
+        .Finished = true,
+        .Winner = mockPlayer1,
+        .Loser = mockPlayer2,
+    };
+    EXPECT_THAT(status, EqGameStatus(trueStatus));
+}
