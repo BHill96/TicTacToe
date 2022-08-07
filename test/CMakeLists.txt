@@ -13,7 +13,8 @@ if(ENABLE_UNIT_TESTS)
 
   set(Tests tests/ApplicationTests.cpp
             tests/TicTacToeGameTests.cpp
-            tests/HumanTests.cpp)
+            tests/HumanTests.cpp
+            tests/PlayerQueueTests.cpp)
   
   add_executable(unit_tests ${Tests})
 
