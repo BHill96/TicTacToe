@@ -86,6 +86,8 @@ SET(SOURCES "interfaces/IBoard.h"
             "entities/Human.cpp"
             "entities/PlayerQueue.h"
             "entities/PlayerQueue.cpp"
+            "entities/TicTacToeBoard.h"
+            "entities/TicTactoeBoard.cpp"
             "ui/GUI.h"
             "ui/GUI.cpp")
 
