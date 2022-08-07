@@ -2,6 +2,8 @@
 #include <iostream>
 #include <vector>
 
+#include "entities/Human.h"
+
 static void glfw_error_callback(int error, const char* description)
 {
     fprintf(stderr, "Glfw Error %d: %s\n", error, description);
@@ -114,8 +116,20 @@ GameSettings GUI::DisplayGameOptions() {
         ImGui::EndCombo();
     };
     if (ImGui::Button("Start Game!")) {
-        // Eventually create players
-        settings = GameSettings();
+        std::shared_ptr<IPlayer> playerOne;
+        std::shared_ptr<IPlayer> playerTwo;
+
+        if (playerOneType == "Human") {
+            playerOne = std::make_shared<Human>(std::shared_ptr<IUI>(this));
+        }
+        
+        if (playerTwoType == "Human") {
+            playerTwo = std::make_shared<Human>(std::shared_ptr<IUI>(this));
+        }
+        
+        settings = GameSettings {
+            .createGame = true
+        };
     } else {
         settings = GameSettings();
     }
