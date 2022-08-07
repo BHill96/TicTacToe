@@ -13,4 +13,5 @@ class MockUI : public IUI {
         MOCK_METHOD(void, DisplayGameResults, (GameStatus), (override));
         MOCK_METHOD(void, Render, (), (override));
         MOCK_METHOD(void, Cleanup, (), (override));
+        MOCK_METHOD(std::unique_ptr<Move>, DisplayInteractiveBoard, (std::shared_ptr<IBoard>), (override));
 };

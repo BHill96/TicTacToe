@@ -77,10 +77,13 @@ SET(SOURCES "interfaces/IBoard.h"
             "interfaces/IUI.h"
             "structures/GameStatus.cpp"
             "structures/GameSettings.cpp"
+            "structures/Move.cpp"
             "entities/TicTacToeGame.h"
             "entities/TicTacToeGame.cpp"
             "entities/TicTacToeGameFactory.h"
             "entities/TicTacToeGameFactory.cpp"
+            "entities/Human.h"
+            "entities/Human.cpp"
             "ui/GUI.h"
             "ui/GUI.cpp")
 

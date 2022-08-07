@@ -150,3 +150,7 @@ void GUI::Cleanup() {
     glfwDestroyWindow(window);
     glfwTerminate();
 }
+
+std::unique_ptr<Move> GUI::DisplayInteractiveBoard(std::shared_ptr<IBoard>) {
+    
+}

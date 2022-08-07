@@ -6,4 +6,5 @@
 class MockBoard : public IBoard {
     public:
         MOCK_METHOD(BoardState, CheckState, (), (override));
+        MOCK_METHOD(void, Update, (std::unique_ptr<Move>), (override));
 };

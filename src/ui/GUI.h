@@ -24,4 +24,5 @@ class GUI : public IUI {
         void DisplayGameResults(GameStatus) override;
         void Render() override;
         void Cleanup() override;
+        std::unique_ptr<Move> DisplayInteractiveBoard(std::shared_ptr<IBoard>) override;
 };

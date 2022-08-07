@@ -2,6 +2,7 @@
 
 #include "structures/GameSettings.cpp"
 #include "structures/GameStatus.cpp"
+#include "structures/Move.cpp"
 
 class IUI {
     public:
@@ -14,4 +15,5 @@ class IUI {
         virtual void DisplayGameResults(GameStatus) = 0;
         virtual void Render() = 0;
         virtual void Cleanup() = 0;
+        virtual std::unique_ptr<Move> DisplayInteractiveBoard(std::shared_ptr<IBoard>) = 0;
 };
