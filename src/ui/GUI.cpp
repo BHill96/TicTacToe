@@ -3,6 +3,8 @@
 #include <vector>
 
 #include "entities/Human.h"
+#include "entities/PlayerQueue.h"
+#include <string>
 
 static void glfw_error_callback(int error, const char* description)
 {
@@ -120,15 +122,18 @@ GameSettings GUI::DisplayGameOptions() {
         std::shared_ptr<IPlayer> playerTwo;
 
         if (playerOneType == "Human") {
-            playerOne = std::make_shared<Human>(std::shared_ptr<IUI>(this));
+            playerOne = std::make_shared<Human>(playerOneName, 'X', std::shared_ptr<IUI>(this));
         }
         
         if (playerTwoType == "Human") {
-            playerTwo = std::make_shared<Human>(std::shared_ptr<IUI>(this));
+            playerTwo = std::make_shared<Human>(playerTwoName, 'O', std::shared_ptr<IUI>(this));
         }
         
         settings = GameSettings {
-            .createGame = true
+            .createGame = true,
+            .playerQueue = std::make_shared<PlayerQueue>(
+                std::vector<std::shared_ptr<IPlayer>> {playerOne, playerTwo}
+            )
         };
     } else {
         settings = GameSettings();
@@ -165,6 +170,6 @@ void GUI::Cleanup() {
     glfwTerminate();
 }
 
-std::unique_ptr<Move> GUI::DisplayInteractiveBoard(std::shared_ptr<IBoard>) {
-    
+std::unique_ptr<Move> GUI::DisplayInteractiveBoard(std::shared_ptr<IBoard> board) {
+    ImGui::Button((const char*)board->Get(0,0),ImVec2(0.1*windowWidth,0.1*windowHeight));
 }

@@ -1,5 +1,7 @@
 #include "entities/TicTacToeGame.h"
 
+#include <iostream>
+
 TicTacToeGame::TicTacToeGame(GameSettings gameSettings) {
     playerQueue = gameSettings.playerQueue;
     board = gameSettings.board;
@@ -7,7 +9,9 @@ TicTacToeGame::TicTacToeGame(GameSettings gameSettings) {
 
 GameStatus TicTacToeGame::PlayGame() {
     GameStatus status;
+    std::cout << "Playing game" << std::endl;
     std::shared_ptr<IPlayer> player = playerQueue->Front();
+    std::cout << "Found Player" << std::endl;
     bool turnFinished = player->Turn(board);
     if (turnFinished) {
         BoardState boardState = board->CheckState();

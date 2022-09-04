@@ -20,7 +20,7 @@ void Application::Run() {
         GameSettings gameSettings = ui->DisplayGameOptions();
         
         if (gameSettings.createGame) {
-            tictactoeGame = gameFactory->CreateGame(gameSettings);
+            tictactoeGame = std::move(gameFactory->CreateGame(gameSettings));
         }
         if (tictactoeGame) {
             gameStatus = tictactoeGame->PlayGame();

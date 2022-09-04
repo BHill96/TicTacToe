@@ -12,4 +12,5 @@ class TicTacToeBoard : public IBoard {
         TicTacToeBoard();
         BoardState CheckState() override;
         void Update(std::unique_ptr<Move>) override;
+        char Get(int,int) override;
 };

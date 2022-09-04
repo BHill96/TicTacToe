@@ -15,7 +15,7 @@ class HumanTests : public::testing::Test {
         }
 
         Human MakeHuman() {
-            return Human(mockUI);
+            return Human("junk",'c',mockUI);
         }
 
 };

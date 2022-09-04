@@ -42,3 +42,7 @@ BoardState TicTacToeBoard::CheckState() {
 void TicTacToeBoard::Update(std::unique_ptr<Move> move) {
     board[move->Row][move->Column] = move->Symbol;
 }
+
+char TicTacToeBoard::Get(int row, int col) {
+    return board[row][col];
+}

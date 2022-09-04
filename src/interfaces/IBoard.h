@@ -13,4 +13,5 @@ class IBoard {
     public:
         virtual BoardState CheckState() = 0;
         virtual void Update(std::unique_ptr<Move>) = 0;
+        virtual char Get(int,int) = 0;
 };

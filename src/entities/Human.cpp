@@ -1,6 +1,8 @@
 #include "entities/Human.h"
 
-Human::Human(std::shared_ptr<IUI> ui) {
+Human::Human(std::string name, char symbol, std::shared_ptr<IUI> ui) {
+    this->name = name;
+    this->symbol = symbol;
     this->ui = ui;
 }
 
