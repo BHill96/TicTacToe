@@ -13,7 +13,7 @@ ExternalProject_Add(
     https://github.com/google/googletest.git
   GIT_TAG
     # This specifies the commit to be used
-    release-1.11.0
+    release-1.12.1
   CONFIGURE_COMMAND ""
   BUILD_COMMAND ""
   INSTALL_COMMAND ""

@@ -2,12 +2,17 @@
 cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
 
 # project name and supported languages
+#set(CMAKE_C_COMPILER "/usr/local/bin/x86_64-apple-darwin20-gcc-11")
+set(CMAKE_C_COMPILER gcc)
+set(CMAKE_CXX_COMPILER g++)
 project(TicTacToe VERSION 1.0 LANGUAGES CXX)
 
 # require C++11
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+
 
 # specify where to place binaries and libraries
 include(GNUInstallDirs)

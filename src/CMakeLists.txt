@@ -3,21 +3,14 @@ SET_PROPERTY(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "RelWithD
 IF (NOT CMAKE_BUILD_TYPE)
   SET (CMAKE_BUILD_TYPE "Release")
 ENDIF ()
+SET (CMAKE_C_COMPILER "/usr/local/bin/x86_64-apple-darwin20-gcc-11" CACHE STRING "Compiler")
 SET (CMAKE_BUILD_TYPE "Release" CACHE STRING "Select which configuration to build")
 SET (CMAKE_INSTALL_PREFIX CACHE PATH "Installation location for binaries, sample inputs, and licenses")
 SET (DO_PROFILE FALSE CACHE BOOL "Enable profiling via gprof")
 SET (CMAKE_VERBOSE_MAKEFILE on)
 SET (CMAKE_EXPORT_COMPILE_COMMANDS on)
 
-# Output more info if debuging
-IF (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
-  ADD_DEFINITIONS(-DVERBOSE=true)
-ELSE ()
-  ADD_DEFINITIONS(-DVERBOSE=false)
-ENDIF ()
-
 SET (CMAKE_INSTALL_PREFIX /usr/local/share)
-
 
 # Define compiler-specific options
 IF (CMAKE_COMPILER_IS_GNUCXX)
